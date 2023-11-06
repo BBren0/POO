@@ -7,4 +7,4 @@ Programadores:
   - Thalis Otávio Camargo Grandin  ;
 
 Professor:  
-  -Jose Matias Lemes Filho
+  - Jose Matias Lemes Filho
