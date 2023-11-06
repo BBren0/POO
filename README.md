@@ -6,5 +6,5 @@ Programadores:
   - Breno Gabriel Viana Lopes  ;
   - Thalis Otávio Camargo Grandin  ;
 
-Professor: 
+Professor:  
   -Jose Matias Lemes Filho
