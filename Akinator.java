@@ -90,7 +90,7 @@ public class Akinator {
             cantoresFiltrados = filtrarPorNacionalidade(cantoresFiltrados, "Internacional");
         }
     
-        // Após fazer todas as perguntas, o programa tentará adivinhar o cantor
+        // Após fazer todas as perguntas, o programa tentará adivinhar o cantor, com base nas respostas e nas funções/métodos de filtragem
         if (cantoresFiltrados.length == 1) {
             System.out.println("O cantor que você está pensando é: " + cantoresFiltrados[0].nome);
         } else {
@@ -100,6 +100,7 @@ public class Akinator {
         scanner.close();
     }
     
+    //Função/MÉTODO para filtrar idade com base nas respostas da pergunta 1    
     private static Cantor[] filtrarPorIdade(Cantor[] cantores, int idadeLimite, boolean menorQueLimite) {
         List<Cantor> cantoresFiltrados = new ArrayList<>();
     
@@ -114,6 +115,7 @@ public class Akinator {
         return cantoresFiltrados.toArray(new Cantor[0]);
     }
     
+    //Função para filtrar gênero com base na pergunta 2
     private static Cantor[] filtrarPorGeneroMusical(Cantor[] cantores, String generoMusical) {
         List<Cantor> cantoresFiltrados = new ArrayList<>();
     
@@ -126,6 +128,7 @@ public class Akinator {
         return cantoresFiltrados.toArray(new Cantor[0]);
     }
     
+    //Função para filtrar gênero (sexual) com base na pergunta 3
     private static Cantor[] filtrarPorGenero(Cantor[] cantores, String genero) {
         List<Cantor> cantoresFiltrados = new ArrayList<>();
     
@@ -138,6 +141,7 @@ public class Akinator {
         return cantoresFiltrados.toArray(new Cantor[0]);
     }
     
+    //Função para filtrar a nacionalidade com base na pergunta 4
     private static Cantor[] filtrarPorNacionalidade(Cantor[] cantores, String nacionalidade) {
         List<Cantor> cantoresFiltrados = new ArrayList<>();
     
