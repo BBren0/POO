@@ -22,81 +22,132 @@ public class Akinator {
 
     public static void main(String[] args) {
         Cantor[] cantores = {
-                // Lista de cantores aqui
+           new Cantor("Bruno Mars",37,"POP","Masculino","Internacional"),
+            new Cantor("Bon Jovi",71,"Rock","Masculino","Internacional"),
+            new Cantor("Anitta",30,"Funk","Feminino","Nacional"),
+            new Cantor("Marilia Mendonça",26,"Country","Feminino","Nacional"),
+            new Cantor("Beyonce",42,"POP","Feminino","Internacional"),
+            new Cantor("Avril Lavigne",39,"Rock","Feminino","Internacional"),
+            new Cantor("Mc Pedrinho",21,"Funk","Masculino","Nacional"),
+            new Cantor("Gustavo Lima",34,"Country","Masculino","Nacional"),
+            new Cantor("Jão",28,"POP","Masculino","Nacional"),
+            new Cantor("Rita Lee",75,"Rock","Feminino","Nacional"),
+            new Cantor("James Brown",73,"Funk","Masculino","Internacional"),
+            new Cantor("Johnny Cash",62,"Country","Masculino","Internacional"),
+            new Cantor("Iza",33,"POP","Feminino","Nacional"),
+            new Cantor("Raul Seixas",44,"Rock","Masculino","Nacional"),
+            new Cantor("Ludmilla",28,"Funk","Feminino","Nacional"),
+            new Cantor("Taylor Swift",33,"Country","Feminino","Internacional"),
         };
-
+    
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Pense em um cantor...\nAgora responda às perguntas para que possamos adivinhá-lo");
-
+    
+        System.out.println("\tPense em um cantor...\n\tAgora responda às perguntas para que possamos adivinhá-lo");
+    
         // Perguntas
         String[] perguntas = {
-                "O cantor tem menos de 40 anos?",
-                "Qual o gênero musical do cantor? (POP, Rock, Funk, Country)",
-                "Qual o gênero do cantor? (Masculino, Feminino)",
-                "Qual a nacionalidade do cantor? (Nacional, Internacional)"
+            "O cantor tem menos de 40 anos?",
+            "Qual o gênero musical do cantor? (POP, Rock, Funk, Country)",
+            "Qual o gênero do cantor? (Masculino, Feminino)",
+            "Qual a nacionalidade do cantor? (Nacional, Internacional)"
         };
-
+    
         String[] respostas = new String[perguntas.length];
-
+    
         for (int i = 0; i < perguntas.length; i++) {
             System.out.println(perguntas[i]);
             respostas[i] = scanner.nextLine().toLowerCase();
         }
-
-        Cantor[] cantoresPossiveis = filtrarCantores(cantores, perguntas, respostas);
-
+    
+        Cantor[] cantoresFiltrados = cantores;
+    
+        // Filtragem com base nas respostas do usuário
+        if (respostas[0].equals("sim")) {
+            cantoresFiltrados = filtrarPorIdade(cantoresFiltrados, 40, true);
+        } else {
+            cantoresFiltrados = filtrarPorIdade(cantoresFiltrados, 40, false);
+        }
+    
+        if (respostas[1].equals("pop")) {
+            cantoresFiltrados = filtrarPorGeneroMusical(cantoresFiltrados, "POP");
+        } else if (respostas[1].equals("rock")) {
+            cantoresFiltrados = filtrarPorGeneroMusical(cantoresFiltrados, "Rock");
+        } else if (respostas[1].equals("funk")) {
+            cantoresFiltrados = filtrarPorGeneroMusical(cantoresFiltrados, "Funk");
+        } else if (respostas[1].equals("country")) {
+            cantoresFiltrados = filtrarPorGeneroMusical(cantoresFiltrados, "Country");
+        }
+    
+        if (respostas[2].equals("masculino")) {
+            cantoresFiltrados = filtrarPorGenero(cantoresFiltrados, "Masculino");
+        } else if (respostas[2].equals("feminino")) {
+            cantoresFiltrados = filtrarPorGenero(cantoresFiltrados, "Feminino");
+        }
+    
+        if (respostas[3].equals("nacional")) {
+            cantoresFiltrados = filtrarPorNacionalidade(cantoresFiltrados, "Nacional");
+        } else if (respostas[3].equals("internacional")) {
+            cantoresFiltrados = filtrarPorNacionalidade(cantoresFiltrados, "Internacional");
+        }
+    
         // Após fazer todas as perguntas, o programa tentará adivinhar o cantor
-        if (cantoresPossiveis.length == 1) {
-            System.out.println("O cantor que você está pensando é: " + cantoresPossiveis[0].nome);
+        if (cantoresFiltrados.length == 1) {
+            System.out.println("O cantor que você está pensando é: " + cantoresFiltrados[0].nome);
         } else {
             System.out.println("Não consegui adivinhar o cantor. Talvez você tenha pensado em alguém que não está na lista.");
         }
-
+    
         scanner.close();
     }
-
-    private static Cantor[] filtrarCantores(Cantor[] cantores, String[] perguntas, String[] respostas) {
+    
+    private static Cantor[] filtrarPorIdade(Cantor[] cantores, int idadeLimite, boolean menorQueLimite) {
         List<Cantor> cantoresFiltrados = new ArrayList<>();
-
+    
         for (Cantor cantor : cantores) {
-            boolean correspondeATodasAsPerguntas = true;
-
-            for (int i = 0; i < perguntas.length; i++) {
-                String pergunta = perguntas[i];
-                String resposta = respostas[i];
-
-                if (pergunta.equals("O cantor tem menos de 40 anos?")) {
-                    if ((resposta.equals("sim") && cantor.idade >= 40) || (resposta.equals("não") && cantor.idade < 40)) {
-                        correspondeATodasAsPerguntas = false;
-                        break;
-                    }
-                } else if (pergunta.equals("Qual o gênero musical do cantor? (pop, rock, funk, country)")) {
-                    if (!cantor.generoMusical.equalsIgnoreCase(resposta)) {
-                        correspondeATodasAsPerguntas = false;
-                        break;
-                    }
-                } else if (pergunta.equals("Qual o gênero do cantor? (masculino, feminino)")) {
-                    if (!cantor.genero.equalsIgnoreCase(resposta)) {
-                        correspondeATodasAsPerguntas = false;
-                        break;
-                    }
-                } else if (pergunta.equals("Qual a nacionalidade do cantor? (nacional, internacional)")) {
-                    if (!cantor.nacionalidade.equalsIgnoreCase(resposta)) {
-                        correspondeATodasAsPerguntas = false;
-                        break;
-                    }
-                }
-            }
-
-            if (correspondeATodasAsPerguntas) {
+            if (menorQueLimite && cantor.idade < idadeLimite) {
+                cantoresFiltrados.add(cantor);
+            } else if (!menorQueLimite && cantor.idade >= idadeLimite) {
                 cantoresFiltrados.add(cantor);
             }
         }
-
-        Cantor[] cantoresArray = new Cantor[cantoresFiltrados.size()];
-        cantoresFiltrados.toArray(cantoresArray);
-
-        return cantoresArray;
+    
+        return cantoresFiltrados.toArray(new Cantor[0]);
     }
+    
+    private static Cantor[] filtrarPorGeneroMusical(Cantor[] cantores, String generoMusical) {
+        List<Cantor> cantoresFiltrados = new ArrayList<>();
+    
+        for (Cantor cantor : cantores) {
+            if (cantor.generoMusical.equalsIgnoreCase(generoMusical)) {
+                cantoresFiltrados.add(cantor);
+            }
+        }
+    
+        return cantoresFiltrados.toArray(new Cantor[0]);
+    }
+    
+    private static Cantor[] filtrarPorGenero(Cantor[] cantores, String genero) {
+        List<Cantor> cantoresFiltrados = new ArrayList<>();
+    
+        for (Cantor cantor : cantores) {
+            if (cantor.genero.equalsIgnoreCase(genero)) {
+                cantoresFiltrados.add(cantor);
+            }
+        }
+    
+        return cantoresFiltrados.toArray(new Cantor[0]);
+    }
+    
+    private static Cantor[] filtrarPorNacionalidade(Cantor[] cantores, String nacionalidade) {
+        List<Cantor> cantoresFiltrados = new ArrayList<>();
+    
+        for (Cantor cantor : cantores) {
+            if (cantor.nacionalidade.equalsIgnoreCase(nacionalidade)) {
+                cantoresFiltrados.add(cantor);
+            }
+        }
+    
+        return cantoresFiltrados.toArray(new Cantor[0]);
+    }
+    
 }
