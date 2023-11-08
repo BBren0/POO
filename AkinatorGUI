@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
- */
 package com.mycompany.akinator;
-
+        
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
-
-  class Cantor {
+class Cantor {
     String nome;
     int idade;
     String generoMusical;
@@ -24,10 +20,13 @@ import java.util.List;
     }
 }
 
-class Akinator {
-    
+public class Akinator {
+
     public static void main(String[] args) {
-       
+        boolean reiniciar = true;
+        
+        while(reiniciar){
+            
         Cantor[] cantores = {
            new Cantor("Bruno Mars",37,"POP","Masculino","Internacional"),
             new Cantor("Bon Jovi",71,"Rock","Masculino","Internacional"),
@@ -46,6 +45,10 @@ class Akinator {
             new Cantor("Ludmilla",28,"Funk","Feminino","Nacional"),
             new Cantor("Taylor Swift",33,"Country","Feminino","Internacional"),
         };
+    
+    
+       JOptionPane.showMessageDialog(null,"\tPense em um cantor...\n\tAgora responda às perguntas para que possamos adivinhá-lo!", "Bem vindo ao Akinator!",JOptionPane.INFORMATION_MESSAGE);
+    
         // Perguntas
         String[] perguntas = {
             "O cantor tem menos de 40 anos?",
@@ -56,19 +59,10 @@ class Akinator {
     
         String[] respostas = new String[perguntas.length];
     
-        //for (int i = 0; i < perguntas.length; i++) {
-            TelaGrafica tela = new TelaGrafica();
-            
-            respostas[0] = tela.getTexto1(); //função que pega o valor da caixa de texto 
-            respostas[1] = tela.getTexto2();
-            respostas[2] = tela.getTexto3();
-            respostas[3] = tela.getTexto4();
-            
-            System.out.println(respostas[0]);
-            System.out.println(respostas[1]);
-            System.out.println(respostas[2]);
-            System.out.println(respostas[3]);
-        
+        for (int i = 0; i < perguntas.length; i++) {
+           respostas[i]= JOptionPane.showInputDialog(perguntas[i]);
+           respostas[i]= respostas[i].toLowerCase();
+        }
     
         Cantor[] cantoresFiltrados = cantores;
     
@@ -103,12 +97,21 @@ class Akinator {
     
         // Após fazer todas as perguntas, o programa tentará adivinhar o cantor, com base nas respostas e nas funções/métodos de filtragem
         if (cantoresFiltrados.length == 1) {
-            tela.atualizarLabelResultado(cantoresFiltrados[0].nome);
-      
+           JOptionPane.showMessageDialog(null,"O cantor que você está pensando é: " + cantoresFiltrados[0].nome + "!!");
+           int opcao = JOptionPane.showConfirmDialog(null, "Deseja jogar novamente?","Reiniciar Quiz",JOptionPane.YES_NO_OPTION);
+           
+           if (opcao != JOptionPane.YES_OPTION) {
+                reiniciar = false;
+            }
         } else {
+            int opcao = JOptionPane.showConfirmDialog(null, "Poxa...não consegui advinhar seu cantor, gostaria de tentar novamente?","Reiniciar Quiz",JOptionPane.YES_NO_OPTION);
+           
+            if (opcao != JOptionPane.YES_OPTION) {
+                reiniciar = false;
+            }
         }
-    
-    }
+       }
+    }     
     
     //Função/MÉTODO para filtrar idade com base nas respostas da pergunta 1    
     private static Cantor[] filtrarPorIdade(Cantor[] cantores, int idadeLimite, boolean menorQueLimite) {
@@ -163,6 +166,4 @@ class Akinator {
     
         return cantoresFiltrados.toArray(new Cantor[0]);
     }
-    
 }
-
