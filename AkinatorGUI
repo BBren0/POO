@@ -104,7 +104,7 @@ public class Akinator {
                 reiniciar = false;
             }
         } else {
-            int opcao = JOptionPane.showConfirmDialog(null, "Poxa...não consegui advinhar seu cantor, gostaria de tentar novamente?","Reiniciar Quiz",JOptionPane.YES_NO_OPTION);
+            int opcao = JOptionPane.showConfirmDialog(null, "Poxa...não consegui advinhar seu cantor, gostaria de tentar novamente?","Reiniciar",JOptionPane.YES_NO_OPTION);
            
             if (opcao != JOptionPane.YES_OPTION) {
                 reiniciar = false;
