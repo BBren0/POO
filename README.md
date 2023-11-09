@@ -6,7 +6,7 @@ Descrição do projeto:
 Programadores:  
   - Alisson Enrique Martins dos Santos - 202105969  ;
   - Breno Gabriel Viana Lopes - 202223250 ;
-  - Thalis Otávio Camargo Grandin  ;
+  - Thalis Otávio Camargo Grandin - 202109858 ;
 
 Professor:  
   - Jose Matias Lemes Filho
