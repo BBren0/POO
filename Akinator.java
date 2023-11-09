@@ -51,6 +51,7 @@ public class Akinator {
             "Qual o gênero do cantor? (Masculino, Feminino)",
             "Qual a nacionalidade do cantor? (Nacional, Internacional)"
         };
+        
     
         String[] respostas = new String[perguntas.length];
     
